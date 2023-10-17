@@ -1,0 +1,10 @@
+.auth__toLogin {
+  color: #FFF;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 15px auto 0;
+  text-decoration: none;
+  max-width: fit-content;
+}

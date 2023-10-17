@@ -1,0 +1,9 @@
+.header__auth-container {
+  display: flex;
+}
+
+@media  screen and (max-width: 480px) {
+  .header__auth-container {
+    flex-direction: column;
+  }
+}

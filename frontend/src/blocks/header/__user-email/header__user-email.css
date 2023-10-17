@@ -1,0 +1,28 @@
+.header__user-email {
+  color: #fff;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22px;
+  margin-right: 24px;
+  padding-top: 8px;
+}
+
+@media screen and (max-width: 520px) {
+  .header__user-email {
+    font-size: 14px;
+    line-height: normal;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .header__user-email {
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .header__user-email {
+    margin-right: 30px;
+  }
+}

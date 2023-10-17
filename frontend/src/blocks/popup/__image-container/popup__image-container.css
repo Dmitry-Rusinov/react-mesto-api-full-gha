@@ -1,0 +1,24 @@
+.popup__image-container {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  z-index: 1;
+  position: relative;
+  max-width: 816px;
+  height: 540px;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 1279px) {
+  .popup__image-container {
+    width: 75vw;
+    height: 75vh;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .popup__image-container {
+    width: 240px;
+    height: 324px;
+  }
+}

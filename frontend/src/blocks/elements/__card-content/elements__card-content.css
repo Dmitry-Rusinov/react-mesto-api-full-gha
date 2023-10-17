@@ -1,0 +1,11 @@
+.elements__card-content {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  border-radius: 10px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #FFFFFF;
+  width: 282px;
+}

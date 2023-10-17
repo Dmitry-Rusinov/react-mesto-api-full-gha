@@ -1,0 +1,17 @@
+.elements__button-delete {
+  position: absolute;
+  background-image: url(../../../images/deleteCard-basket.svg);
+  cursor: pointer;
+  top: 20px;
+  right: 20px;
+  width: 18px;
+  height: 19px;
+  border: none;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  transition: opacity 0.6s;
+}
+
+.elements__button-delete:hover {
+  opacity: 0.6;
+}
