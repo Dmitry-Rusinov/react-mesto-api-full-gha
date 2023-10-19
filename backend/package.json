@@ -7,12 +7,12 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon --inspect -- app.js",
-    "lint": "npx eslint ../express-mesto-gha"
+    "lint": "npx eslint ../react-mesto-api-full-gha"
   },
   "production": {
     "NODE_ENV": "production",
     "endpoint": "https://api.mesto-rus.students.nomoredomainsrocks.ru"
-    },
+  },
   "keywords": [],
   "author": "Dmitry-Rusinov",
   "license": "ISC",
@@ -32,9 +32,10 @@
     "winston": "^3.11.0"
   },
   "devDependencies": {
-    "eslint": "^8.50.0",
+    "eslint": "^8.2.0",
     "eslint-config-airbnb": "^19.0.4",
-    "eslint-plugin-import": "^2.28.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "nodemon": "^3.0.1"
   }
