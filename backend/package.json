@@ -7,7 +7,8 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon --inspect -- app.js",
-    "lint": "npx eslint ../express-mesto-gha"
+    "lint": "npx eslint ../express-mesto-gha",
+    "prod": "NODE_ENV=production node app.js"
   },
   "keywords": [],
   "author": "Dmitry-Rusinov",
