@@ -9,8 +9,8 @@
 
 ## Ссылки на проект
 
-IP-адрес 10.128.0.3
+IP-адрес - 10.128.0.3
 
-Frontend https://mesto-rus.students.nomoredomainsrocks.ru/
+Frontend - https://mesto-rus.students.nomoredomainsrocks.ru/
 
-Backend https://api.mesto-rus.students.nomoredomainsrocks.ru/
+Backend - https://api.mesto-rus.students.nomoredomainsrocks.ru/

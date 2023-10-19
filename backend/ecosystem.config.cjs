@@ -3,6 +3,9 @@ module.exports = {
     {
       name: "mesto-auto-deploy",
       script: "./app.js",
+      env_production: {
+        NODE_ENV: 'production',
+    },
     },
   ],
 

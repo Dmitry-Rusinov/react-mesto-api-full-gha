@@ -7,9 +7,12 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon --inspect -- app.js",
-    "lint": "npx eslint ../express-mesto-gha",
-    "prod": "NODE_ENV=production node app.js"
+    "lint": "npx eslint ../express-mesto-gha"
   },
+  "production": {
+    "NODE_ENV": "production",
+    "endpoint": "https://api.mesto-rus.students.nomoredomainsrocks.ru"
+    },
   "keywords": [],
   "author": "Dmitry-Rusinov",
   "license": "ISC",
