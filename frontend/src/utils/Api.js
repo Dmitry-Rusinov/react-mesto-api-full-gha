@@ -12,30 +12,34 @@ class Api {
   }
 
   getInitialCards() {
-    return fetch(`${this._baseUrl}/cards`, {
-      headers: this._headers,
+    return fetch(`${this._baseUrl}/cards`,
+    {
+      method: "GET",
+      credentials: "include",
     }).then(this.checkResponse);
   }
 
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
-      headers: this._headers,
+      method: "GET",
+      credentials: "include",
     }).then(this.checkResponse);
   }
 
   setUserAvatar(data) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
+      credentials: "include",
       headers: this._headers,
       body: JSON.stringify({
-        avatar: data.avatar,
-      }),
+        avatar: data.avatar}),
     }).then(this.checkResponse);
   }
 
   setUserInfo(data) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
+      credentials: "include",
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
@@ -47,6 +51,7 @@ class Api {
   setUserCard(data) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
+      credentials: "include",
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
@@ -58,7 +63,7 @@ class Api {
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
-      headers: this._headers,
+      credentials: "include",
     }).then(this.checkResponse);
   }
 
@@ -66,21 +71,23 @@ class Api {
     if (!isLiked) {
       return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
         method: "DELETE",
+        credentials: "include",
         headers: this._headers,
       }).then(this.checkResponse);
     } else {
       return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
         method: "PUT",
+        credentials: "include",
         headers: this._headers,
       }).then(this.checkResponse);
     }
-  }
+  } 
 }
 
 const api = new Api({
-  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-71",
+  //baseUrl: "https://api.mesto-rus.students.nomoredomainsrocks.ru",
+  baseUrl: "http://localhost:3000",
   headers: {
-    authorization: "03ed5ff2-8963-4b3f-9a71-48eed9962646",
     "Content-Type": "application/json",
   },
 });

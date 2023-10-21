@@ -25,6 +25,7 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpened] = React.useState(false);
   const [isConfirmationPopupOpen, setConfirmationPopupOpened] =
     React.useState(false);
+  const [deleteIdCard, setDeleteIdCard] = React.useState("");
   const [isInfoToolTipOpen, setInfoToolTipOpened] = React.useState(false);
   const [isRegistrationConfirm, setRegistrationConfirm] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
@@ -64,10 +65,11 @@ function App() {
     setIsAddPlacePopupOpened(true);
   };
 
-  /* открываем попап подтверждения удаления карточки
-  const handleButtonDeleteCardClick = () => {
+  // открываем попап подтверждения удаления карточки
+ /*  const handleButtonDeleteCardClick = (cardId) => {
     setConfirmationPopupOpened(true);
-  };*/
+    setDeleteIdCard(cardId);
+  }; */
 
   //открываем попап с информацией о регистрации
   const handleInfoToolTipClick = () => {
@@ -88,7 +90,7 @@ function App() {
 
   //ставим лайк карточке
   const handleCardLike = (card) => {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some(id => id === currentUser._id);
     api
       .changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
@@ -151,15 +153,14 @@ function App() {
     tokenCheck();
   }, []);
 
-  //проверяем наличие токена
   const tokenCheck = () => {
-    if (localStorage.getItem("token")) {
-      const token = localStorage.getItem("token");
+    if (localStorage.getItem("userId")) {
+      const token = localStorage.getItem("userId"); 
       if (token) {
-        Auth.getContent(token)
+        Auth.getContent()
           .then((res) => {
             if (res) {
-              setUserEmail(res.data.email);
+              setUserEmail(res.email);
               setLoggedIn(true);
               navigate("/", { replace: true });
             }
@@ -187,8 +188,9 @@ function App() {
   };
 
   //выходим из системы
-  const onSignOut = () => {
-    localStorage.removeItem("token");
+  const onSignOut = (e) => {
+    e.preventDefault();
+    localStorage.removeItem("userId");
     setUserEmail("");
     navigate("/signin");
   };
@@ -260,6 +262,8 @@ function App() {
         <PopupWithConfirmation
           isOpen={isConfirmationPopupOpen}
           onClose={closeAllPopups}
+          onSubmit={handleCardDelete}
+          card={deleteIdCard}
         />
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
         <InfoTooltip

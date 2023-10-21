@@ -9,7 +9,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 51.250.8.9
+IP-адрес <51.250.8.9>
 
 Frontend https://mesto-rus.students.nomoredomainsrocks.ru/
 

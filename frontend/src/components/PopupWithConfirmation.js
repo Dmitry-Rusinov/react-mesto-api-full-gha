@@ -1,6 +1,6 @@
 import PopupWithForm from "./PopupWithForm";
 
-export default function PopupWithConfirmation({ isOpen, onClose }) {
+export default function PopupWithConfirmation({ isOpen, onClose, onSubmit, card }) {
   return (
     <PopupWithForm
       name="popup_deleteCard"

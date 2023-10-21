@@ -4,12 +4,7 @@ import Unauthorized from '../errors/Unauthorized.js';
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 const auth = (req, res, next) => {
-  const authorization = req.cookies.someCookieKey;
-  if (!authorization) {
-    return next(new Unauthorized('Требуется авторизация'));
-  }
-
-  const token = authorization.replace('Bearer ', '');
+  const token = req.cookies.someCookieKey;
   let payload;
 
   try {
