@@ -25,7 +25,7 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpened] = React.useState(false);
   const [isConfirmationPopupOpen, setConfirmationPopupOpened] =
     React.useState(false);
-  const [deleteIdCard, setDeleteIdCard] = React.useState("");
+  //const [deleteIdCard, setDeleteIdCard] = React.useState("");
   const [isInfoToolTipOpen, setInfoToolTipOpened] = React.useState(false);
   const [isRegistrationConfirm, setRegistrationConfirm] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
@@ -34,7 +34,7 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [userEmail, setUserEmail] = React.useState("");
   const navigate = useNavigate();
-
+  
   //получение промисов
   useEffect(() => {
     Promise.all([api.getUserInfo(), api.getInitialCards()])
@@ -263,7 +263,6 @@ function App() {
           isOpen={isConfirmationPopupOpen}
           onClose={closeAllPopups}
           onSubmit={handleCardDelete}
-          card={deleteIdCard}
         />
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
         <InfoTooltip

@@ -15,6 +15,7 @@ export default function Login({ handleLogin, setUserEmail }) {
     Auth.authorize(values.email, values.password)
       .then((data) => {
         if (data) {
+          console.log(data);
           handleLogin();
           navigate("/", { replace: true });
         }
