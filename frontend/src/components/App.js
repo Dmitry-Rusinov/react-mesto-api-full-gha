@@ -149,6 +149,9 @@ function App() {
   };
 
   //проверяем есть ли токен у пользователя при загрузке страницы
+  useEffect(() => {
+    tokenCheck();
+  }, []);
 
   const tokenCheck = () => {
     if (localStorage.getItem("userId")) {
@@ -167,6 +170,7 @@ function App() {
       }
     }
   };
+
 
   //проверяем успешна регистрация или нет
   const checkRegistration = ({ email, password }) => {
