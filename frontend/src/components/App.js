@@ -29,7 +29,7 @@ function App() {
   const [isInfoToolTipOpen, setInfoToolTipOpened] = React.useState(false);
   const [isRegistrationConfirm, setRegistrationConfirm] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
-  const [currentUser, setCurrentUser] = React.useState("");
+  const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [userEmail, setUserEmail] = React.useState("");
@@ -149,9 +149,6 @@ function App() {
   };
 
   //проверяем есть ли токен у пользователя при загрузке страницы
-  useEffect(() => {
-    tokenCheck();
-  }, []);
 
   const tokenCheck = () => {
     if (localStorage.getItem("userId")) {
@@ -161,6 +158,7 @@ function App() {
           .then((res) => {
             if (res) {
               setUserEmail(res.email);
+              setCurrentUser(res)
               setLoggedIn(true);
               navigate("/", { replace: true });
             }
@@ -218,7 +216,7 @@ function App() {
             <Route
               path="/signin"
               element={
-                <Login handleLogin={handleLogin} setUserEmail={setUserEmail} />
+                <Login handleLogin={handleLogin} setUserEmail={setUserEmail} tokenCheck={tokenCheck}/>
               }
             />
             <Route

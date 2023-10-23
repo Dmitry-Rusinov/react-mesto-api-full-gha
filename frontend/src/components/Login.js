@@ -1,9 +1,8 @@
-import { useEffect } from "react";
 import * as Auth from "./Auth";
 import { useNavigate } from "react-router-dom";
 import { useFormAndValidation } from "../hooks/useFormAndValidation";
 
-export default function Login({ handleLogin, setUserEmail }) {
+export default function Login({ handleLogin, setUserEmail, tokenCheck}) {
   const { errors, values, handleChange } = useFormAndValidation();
   const navigate = useNavigate();
 
@@ -15,19 +14,14 @@ export default function Login({ handleLogin, setUserEmail }) {
     Auth.authorize(values.email, values.password)
       .then((data) => {
         if (data) {
-          console.log(data);
+          tokenCheck();
+          setUserEmail(data.email);
           handleLogin();
           navigate("/", { replace: true });
         }
       })
       .catch((err) => console.log(err));
   }
-
-  useEffect(() => {
-    if (handleSubmit) {
-      setUserEmail(values.email);
-    }
-  });
 
   return (
     <div className="auth">
