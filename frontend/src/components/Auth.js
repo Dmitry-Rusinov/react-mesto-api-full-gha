@@ -28,7 +28,8 @@ export const authorize = (email, password) => {
   })
     .then(api.checkResponse)
     .then((data) => {
-        localStorage.setItem("userId", data._id);
+      console.log(data);
+        localStorage.setItem("userId", data.email);
         return data;
     });
 };
