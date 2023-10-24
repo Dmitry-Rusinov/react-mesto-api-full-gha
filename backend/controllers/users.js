@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import User from '../models/user.js';
 import NotFound from '../errors/NotFound.js';
 import Conflict from '../errors/Conflict.js';
+import BadRequest from '../errors/BadRequest.js';
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
@@ -11,10 +12,15 @@ const login = (req, res, next) => {
   return User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key', { expiresIn: '7d' });
-      res.cookie('someCookieKey', token, { httpOnly: true, sameSite: true, maxAge: 3600000 * 24 * 7 });
-      res.status(200).send({ email: user.email}/* user.toJSON() */);
+      res.cookie('someCookieKey', token, { httpOnly: true, sameSite: true, maxAge: 3600000 * 24 * 7});
+      res.status(200).send({ email: user.email});
     })
     .catch(next);
+};
+
+const logout = (req, res) => {
+  res.clearCookie('someCookieKey');
+  return res.send({});
 };
 
 const getInfoByCurrentUser = (req, res, next) => {
@@ -54,6 +60,9 @@ const createUser = (req, res, next) => {
       if (err.code === 11000) {
         return next(new Conflict('Такой пользователь уже существует'));
       }
+      if (err.name === 'ValidationError') {
+        return next(new BadRequest('Ошибка валидации полей'));
+      }
       return next(err);
     });
 };
@@ -66,7 +75,12 @@ const getUserById = (req, res, next) => {
       }
       return res.status(200).send(user);
     })
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        return next(new BadRequest('Передан невалидный id пользователя'));
+      }
+      return next;
+    });
 };
 
 const updateUserProfile = (req, res, next) => {
@@ -75,7 +89,12 @@ const updateUserProfile = (req, res, next) => {
     .then((user) => {
       res.status(200).send(user);
     })
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        return next(new BadRequest('Ошибка валидации полей'));
+      }
+      return next;
+    });
 };
 
 const updateUserAvatar = (req, res, next) => {
@@ -84,10 +103,15 @@ const updateUserAvatar = (req, res, next) => {
     .then((user) => {
       res.status(200).send(user);
     })
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        return next(new BadRequest('Ошибка валидации полей'));
+      }
+      return next;
+    });
 };
 
 export {
   getUsers, createUser, getUserById, updateUserAvatar,
-  updateUserProfile, login, getInfoByCurrentUser,
+  updateUserProfile, login, getInfoByCurrentUser, logout,
 };

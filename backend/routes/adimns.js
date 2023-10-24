@@ -3,7 +3,7 @@ import {
   loginValidation,
   createUserValidation,
 } from '../middlewares/requestValidation.js';
-import { createUser, login } from '../controllers/users.js';
+import { createUser, login, logout } from '../controllers/users.js';
 
 const adminsRouter = Router();
 
@@ -14,5 +14,6 @@ adminsRouter.get('/crash-test', () => {
 });
 adminsRouter.post('/signin', loginValidation, login);
 adminsRouter.post('/signup', createUserValidation, createUser);
+adminsRouter.get('/logout', logout);
 
 export default adminsRouter;

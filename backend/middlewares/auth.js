@@ -5,6 +5,7 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 
 const auth = (req, res, next) => {
   const token = req.cookies.someCookieKey;
+
   let payload;
 
   try {
@@ -12,7 +13,6 @@ const auth = (req, res, next) => {
   } catch (err) {
     return next(new Unauthorized('Требуется авторизация'));
   }
-
   req.user = payload;
 
   next();

@@ -1,7 +1,7 @@
 import { api } from "../utils/Api";
 
-export const BASE_URL = "https://api.mesto-rus.students.nomoredomainsrocks.ru";
-//export const BASE_URL = "http://localhost:3000";
+//export const BASE_URL = "https://api.mesto-rus.students.nomoredomainsrocks.ru";
+export const BASE_URL = "http://localhost:3000";
 
 export const register = ( { email, password } ) => {
   return fetch(`${BASE_URL}/signup`, {
@@ -21,17 +21,17 @@ export const authorize = (email, password) => {
     method: "POST",
     credentials: "include",
     headers: {
-      Accept: "application/json",
+      "Accept": "application/json",
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password }),
   })
     .then(api.checkResponse)
     .then((data) => {
-      console.log(data);
         localStorage.setItem("userId", data.email);
         return data;
-    });
+    })
+    .catch((err) => console.log(err));
 };
 
 export const getContent = () => {
@@ -44,3 +44,14 @@ export const getContent = () => {
     },
   }).then(api.checkResponse);
 };
+
+export const logout = () => {
+  return fetch(`${BASE_URL}/logout`, {
+    method: "GET",
+    credentials: "include",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+    },
+  }).then(api.checkResponse);
+}

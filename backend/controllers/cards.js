@@ -1,6 +1,7 @@
 import Card from '../models/card.js';
 import Forbidden from '../errors/Forbidden.js';
 import NotFound from '../errors/NotFound.js';
+import BadRequest from '../errors/BadRequest.js';
 
 const createCard = ((req, res, next) => {
   const { name, link } = req.body;
@@ -28,7 +29,12 @@ const deleteCard = ((req, res, next) => {
         .then((item) => res.status(200).send(item))
         .catch(next);
     })
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        return next(new BadRequest('Передан невалидный id карточки'));
+      }
+      return next;
+    });
 });
 
 const setLikeCard = ((req, res, next) => {
@@ -43,7 +49,12 @@ const setLikeCard = ((req, res, next) => {
       }
       return res.status(201).send(card);
     })
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        return next(new BadRequest('Передан невалидный id карточки'));
+      }
+      return next;
+    });
 });
 
 const dislikeCard = ((req, res, next) => {
@@ -58,7 +69,12 @@ const dislikeCard = ((req, res, next) => {
       }
       return res.status(200).send(card);
     })
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        return next(new BadRequest('Передан невалидный id карточки'));
+      }
+      return next;
+    });
 });
 
 export {

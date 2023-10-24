@@ -34,16 +34,6 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [userEmail, setUserEmail] = React.useState("");
   const navigate = useNavigate();
-  
-  //получение промисов
-  useEffect(() => {
-    Promise.all([api.getUserInfo(), api.getInitialCards()])
-      .then(([userData, cardsData]) => {
-        setCurrentUser(userData);
-        setCards(cardsData);
-      })
-      .catch((err) => console.log(`Ошибка: ${err}`));
-  }, []);
 
   //открываем попап увеличенного изображения
   const handleCardClick = (card) => {
@@ -167,10 +157,14 @@ function App() {
             }
           })
           .catch((err) => console.log(`Ошибка: ${err}`));
+          api.getInitialCards()
+          .then((cardsData) => {
+            setCards(cardsData);
+          })
+          .catch((err) => console.log(`Ошибка: ${err}`));
       }
     }
   };
-
 
   //проверяем успешна регистрация или нет
   const checkRegistration = ({ email, password }) => {
@@ -189,12 +183,15 @@ function App() {
       });
   };
 
-  //выходим из системы
+  //выходим из системы и удаляем куки
   const onSignOut = (e) => {
     e.preventDefault();
     localStorage.removeItem("userId");
-    setUserEmail("");
     navigate("/signin");
+    Auth.logout().then(() => {
+      setUserEmail("");
+    })
+    .catch((err) => console.log(`Ошибка: ${err}`));
   };
 
   return (
